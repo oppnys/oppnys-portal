@@ -1,10 +1,12 @@
 import {useState} from "react";
-import {ColorPicker, ConfigProvider, Space, theme} from "antd";
+import {Card, ColorPicker, ConfigProvider, theme} from "antd";
 import {StyleProvider, px2remTransformer} from '@ant-design/cssinjs';
 import LoginForm from "./pages/LoginForm.tsx";
+import './App.css';
 
 const px2rem = px2remTransformer({
-    rootValue: 16, // 16px = 1rem; @default 16
+    rootValue: 10, // 10px = 1rem; @default 16
+    mediaQuery: true
 });
 
 
@@ -21,9 +23,9 @@ const App = () => {
     >
         <ColorPicker value={primaryColor} onChangeComplete={(color) => setPrimaryColor(color.toHexString())}/>
         <StyleProvider transformers={[px2rem]}>
-            <Space>
+            <Card>
                 <LoginForm/>
-            </Space>
+            </Card>
         </StyleProvider>
     </ConfigProvider>
 }
