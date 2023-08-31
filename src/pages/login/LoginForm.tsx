@@ -3,24 +3,20 @@ import {Button, Form, Input} from 'antd';
 import {ValidateErrorEntity} from "rc-field-form/lib/interface";
 import styled from "@emotion/styled";
 import {LockOutlined, UserOutlined} from "@ant-design/icons";
+import {LoginFieldType} from "../../types/user.ts";
+import {login} from "../../api/auth.ts";
 
 const FlexLR = styled.div`
   display: flex;
   justify-content: space-between;
 `
 
-const onFinish = (values: FieldType) => {
-    console.log('Success:', values);
+const onFinish = async (values: LoginFieldType) => {
+    await login(values)
 };
 
-const onFinishFailed = (errorInfo: ValidateErrorEntity<FieldType>) => {
+const onFinishFailed = (errorInfo: ValidateErrorEntity<LoginFieldType>) => {
     console.log('Failed:', errorInfo);
-};
-
-type FieldType = {
-    username?: string;
-    password?: string;
-    remember?: string;
 };
 
 
@@ -31,7 +27,7 @@ const LoginForm: React.FC = () => (
         onFinishFailed={onFinishFailed}
         autoComplete="off"
     >
-        <Form.Item<FieldType>
+        <Form.Item<LoginFieldType>
             name="username"
             rules={[{required: true, message: '请输入用户名!'}]}
         >
@@ -42,7 +38,7 @@ const LoginForm: React.FC = () => (
             />
         </Form.Item>
 
-        <Form.Item<FieldType>
+        <Form.Item<LoginFieldType>
             name="password"
             rules={[{required: true, message: '请输入密码!'}]}
         >
